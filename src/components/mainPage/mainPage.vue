@@ -16,7 +16,7 @@
     import doOrder from './doOrder/doOrder'
     import cooperation from './cooperation/cooperation'
     import contacts from './contacts/contacts'
-    import footer from './footer/footer'
+    import footer from '../footer/footer'
     export default {
         components: {
             'header-header':header,

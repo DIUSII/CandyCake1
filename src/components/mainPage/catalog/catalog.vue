@@ -1,39 +1,52 @@
 <template>
-    <div class="catalog fixed-container">
-        <h2 class="catalog__title">Каталог</h2>
+    <div class="catalog fixed-container" id="catalog">
+        <h2 class="catalog__title-mainPage">Каталог</h2>
         <h3 class="catalog__sub-title">Выберите интересующий раздел</h3>
         <ul class="catalog__items">
-            <li class="catalog__item">
-                <img src="./images/kigurumi.png" alt="kigurumi" class="catalog__img">
-                <p class="catalog__fiqcaption">Кигуруми</p>
-                <button class="catalog__button">Перейти</button>
-            </li>
-            <li class="catalog__item">
-                <img src="./images/slime.png" alt="slime" class="catalog__img">
-                <p class="catalog__fiqcaption">Слаймы</p>
-                <button class="catalog__button">Перейти</button>
-            </li>
-            <li class="catalog__item">
-                <img src="./images/slippers.png" alt="slippers" class="catalog__img">
-                <p class="catalog__fiqcaption">Тапочки</p>
-                <button class="catalog__button">Перейти</button>
-            </li>
-            <li class="catalog__item">
-                <img src="./images/sweets.png" alt="swwets" class="catalog__img">
-                <p class="catalog__fiqcaption">Сладости</p>
+            <li class="catalog__item-main-page" v-for="item in array" :key='item.id' @click="goOverCatalog">
+                <img :src="item.img" alt="kigurumi" class="catalog__img-main-page">
+                <p class="catalog__fiqcaption">{{item.title}}</p>
                 <button class="catalog__button">Перейти</button>
             </li>
         </ul>
     </div>
 </template>
 <script>
+    import router from '../../../router/router'
     export default {
-        
+        data(){
+            return {
+                array: [
+                    {
+                        title: 'Кигуруми',
+                        img: require('./images/kigurumi.png')
+                    },
+                    {
+                        title: 'Слаймы',
+                        img: require('./images/slime.png')
+                    },
+                    {
+                        title: 'Тапочки',
+                        img: require('./images/slippers.png')
+                    },
+                    {
+                        title: 'Сладости',
+                        img: require('./images/sweets.png')
+                    },
+                    
+                ]
+            }
+        },
+        methods: {
+            goOverCatalog(){
+                router.push({path: './catalog'})
+            }
+        }
     }
 </script>
 <style lang="scss">
     .catalog{
-        &__title{
+        &__title-mainPage{
             font-family: GUERRILLA;
             font-size: 30px;
             line-height: 1.47;
@@ -62,7 +75,7 @@
             align-items: flex-end;
             margin-bottom: 162px;
         }
-        &__item{
+        &__item-main-page{
             text-align: center;
         }
         &__fiqcaption{
@@ -86,6 +99,7 @@
             color: #ffffff;
             padding: 15px 0;
             border: none;
+            outline: none;
         }
     }
 </style>

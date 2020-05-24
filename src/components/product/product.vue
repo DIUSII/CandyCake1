@@ -3,15 +3,15 @@
         <nav-bar class="fixed-container"></nav-bar>
         <div class="product__container fixed-container flex-container">
             <div class="product__group-img">
-                <a href="#" class="product__link">Главная / Тапочки / <span class="product__link_span">Тапки для кигуруми розовые</span></a>
-                <img src="./images/big-slipper.png" alt="slipper">
+                <a href="#" class="product__link">Главная / Тапочки / <span class="product__link_span">{{checkOutCatalog[$store.state.index].title}}</span></a>
+                <img :src="checkOutCatalog[$store.state.index].img" alt="slipper" width='370'>
                 <div class="flex-container product__additional-img">
                     <img src="./images/small-slipper.png" alt="slipper" class="product__min-img">
                     <img src="./images/reverse-slipper.png" alt="slipper" class="product__reverse-img-product">
                 </div>
             </div>
             <form class="product__form">
-                <h2 class="product__title">Тапки для кигуруми розовые</h2>
+                <h2 class="product__title">{{checkOutCatalog[$store.state.index].title}}</h2>
                 <h3 class="product__sub-title">Выберите размер:</h3>
                 <ul class="product__size">
                     <li class="product__item-size" :class="{hoverEffectSize: hoverEffect1}" @mouseenter="hoverEffect1 = true" @mouseout="hoverEffect1 = false">29-34</li>
@@ -19,13 +19,9 @@
                     <li class="product__item-size" :class="{hoverEffectSize: hoverEffect3}" @mouseenter="hoverEffect3 = true" @mouseout="hoverEffect3 = false">40-45</li>
                 </ul>
                 <h3 class="product__sub-title">Количество:</h3>
-                <div class="product__quatity-product flex-container">
-                    <p class="product__minus" @click="minusNumber">-</p>
-                    <p class="product__number">{{number}}</p>
-                    <p class="product__plus" @click="plusNumber" >+</p>
-                </div>
-                <div class="product__price">Цена:<span class="product__price_span">580 руб</span></div>
-                <button class="product__add-in-basket">Добавить в корзину</button>
+                <add-quantity></add-quantity>
+                <div class="product__price">Цена:<span class="product__price_span">{{checkOutCatalog[$store.state.index].price}}</span></div>
+                <button class="product__add-in-basket" @click="addItemInBasket">Добавить в корзину</button>
                 <button class="product__order">Заказать</button>
             </form>
         </div>
@@ -35,28 +31,28 @@
 <script>
     import navBar from '../navBar/navBar'
     import footer from '../footer/footer'
+    import addQuantity from './components/addQuantity'
+    import {mapGetters, mapMutations}  from 'vuex'
     export default {
         data(){
             return {
                 hoverEffect1: false,
                 hoverEffect2: false,
                 hoverEffect3: false,
-                number: 1,
             }
         },
         methods: {
-            minusNumber(){
-                if(this.number > 1){
-                    this.number--;
-                }
-            },
-            plusNumber(){
-                this.number++;
+            ...mapMutations(['appQuantity']),
+            addItemInBasket(){
+                this.appQuantity();
             }
         },
+        computed: mapGetters(['checkOutCatalog']),
         components: {
             'nav-bar': navBar,
             'footer-container': footer,
+            'add-quantity': addQuantity
+
         }
     }
 </script>
@@ -141,6 +137,8 @@
             font-size: 22px;
             letter-spacing: 0.55px;
             color: #ffffff;
+            height: 29px;
+            width: 9px;
             background-color: #f99fc9;
             padding: 0 9px;
             cursor: pointer;

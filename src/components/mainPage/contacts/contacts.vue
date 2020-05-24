@@ -1,5 +1,5 @@
 <template>
-    <div class="contact fixed-container">
+    <div class="contact fixed-container" id='contacts'>
         <h2 class="contact__title">Контакты</h2>
         <h3 class="contact__sub-title">Как с нами связаться</h3>
         <div class="contact__container">
@@ -10,7 +10,7 @@
                 <h4 class="contact__title-info">С нами можно связаться:</h4>
                 <p class="contact__link">
                     <img src="./images/email.svg" alt="email" class="contact__img">
-                    <span>CakeCandyTomsk@gmail.com</span>
+                    <a href="mailto:CakeCandyTomsk@gmail.com" class="contact__email-input">CakeCandyTomsk@gmail.com</a>
                 </p>
                 <p class="contact__link">
                     <img src="./images/inst.svg" alt="inst" class="contact__img">
@@ -20,7 +20,7 @@
                     <img src="./images/vk.svg" alt="vk" class="contact__img">
                     <span>vk.com/keksikcandy</span>
                 </p>
-                <a href="#" class="contact__phone">8 (923) 437-74-72</a>
+                <a href="tel:+79234377472" class="contact__phone">8 (923) 437-74-72</a>
             </div>
             <img src="./images/map.jpg" alt="map" class="contact__img-map">
         </div>
@@ -100,6 +100,10 @@
             color: #858585;
             margin-top: 0px;
             margin-bottom: 30px;
+        }
+        &__email-input{
+            text-decoration: none;
+            color: #858585;
         }
         &__phone{
             font-family: GUERRILLA;

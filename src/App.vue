@@ -10,6 +10,9 @@ export default {
   name: 'App',
   components: {
     block,
+  },
+  created(){
+    localStorage.index = 0;
   }
 }
 </script>

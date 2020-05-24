@@ -1,22 +1,32 @@
 <template>
-    <div class="cooperation fixed-container">
+    <div class="cooperation fixed-container" id='cooperation'>
         <h2 class="cooperation__title">Сотрудничество</h2>
         <h3 class="cooperation__sub-title">Мы всегда открыты к сотрудничеству</h3>
         <div class="cooperation__container">
             <img src="./images/cooperation-cake.png" alt="cooperation-cake" class="cooperation__img">
-            <form class="cooperation__form">
+            <form 
+                class="cooperation__form" 
+                action="https://formspree.io/maypqryg"
+                method="POST"
+            > 
                 <h4 class="cooperation__title-form">Укажите ваши контакты и мы с вами свяжемся!</h4>
-                <input type="text" class="cooperation__input" placeholder="Ваше имя...">
-                <input type="text" class="cooperation__input" placeholder="Ваш телефон...">
-                <button class="cooperation__button">Отправить контакты</button>
-                <small class="cooperation__small">Отправляя свои контактные данные, вы соглашаетесь на обработку персональных данных</small>
+                <input type="text" class="cooperation__input" placeholder="Ваше имя..." required name="text">
+                <input type="text" class="cooperation__input" placeholder="Ваш телефон..." required name="tell" v-mask="'7 (###) ###-##-##'" v-model="inputPhone">
+                <button class="cooperation__button" type="submit">Отправить контакты</button>
+                <small class="cooperation__small ">Отправляя свои контактные данные, вы соглашаетесь на обработку персональных данных</small>
             </form>
         </div>
     </div>
 </template>
 <script>
     export default {
-        
+        data(){
+            return {
+                inputPhone: ""
+            }
+        },
+        components: {
+        }
     }
 </script>
 <style lang="scss">
@@ -78,6 +88,13 @@
             line-height: 1.83;
             letter-spacing: 0.24px;
             color: #bcbbbb;
+            &::placeholder {
+                 font-family: Comfortaa;
+                font-size: 12px;
+                line-height: 1.83;
+                letter-spacing: 0.24px;
+                color: #bcbbbb;
+            }
 
         }
         &__button{

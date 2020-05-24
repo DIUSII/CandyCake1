@@ -1,7 +1,7 @@
 <template>
-    <div class="aboutUs">
+    <div class="aboutUs" id="aboutUs">
         <h2 class="aboutUs__title">О нас</h2>
-        <div class="aboutUs__contain flex-container fixed-container">
+        <div class="aboutUs__container flex-container fixed-container">
             <div class="aboutUs__info">
                 <h3 class="aboutUs__sub-title">Кто такой кексик Candy?</h3>
                 <div class="aboutUs__text">
@@ -22,6 +22,9 @@
 <style lang="scss">
     .aboutUs{
         margin-bottom: 170px;
+        &__container{
+            max-width:1000px;
+        }
         &__title{
             margin-top: 163px;
             margin-bottom: 103px;

@@ -1,5 +1,5 @@
 <template>
-    <div class="order fixed-container"> 
+    <div class="order fixed-container" id="doOrder"> 
         <h2 class="order__title">Как сделать заказ</h2>
         <h3 class="order__sub-title">У нас все легко и просто</h3>
         <div class="order__staps">

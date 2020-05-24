@@ -6,23 +6,34 @@
             <div class="header__info">
                 <h1 class="header__title">Добро пожаловать в Мир кексика Candy!</h1>
                 <p class="header__sub-title">Трендовый товар со всего света!</p>
-                <button class="header__button">Перейти в каталог<span class="header__white-basket"></span></button>
+                <a class="header__button flex-container" href="#catalog"><span>Перейти в каталог</span><span class="header__white-basket"></span></a>
+
             </div>
             <img src="./images/main-cake.png" alt="main-cake" class="header__main-cake">
         </div>
     </div>
 </template>
 <script>
-import navBar from '../../navBar/navBar'
-export default {
-    components: {
-        'nav-bar': navBar
+    import navBar from '../../navBar/navBar'
+    export default {
+        data(){
+            return {
+
+            }
+        },
+        components: {
+            'nav-bar': navBar
+        },
+        methods: {
+
+        }
     }
-}
 </script>
 <style lang="scss">
-    .header{
-        padding: 21px 20px 0;
+    .header{//левая часть хедера
+        &__menu{
+            padding: 21px 20px 0;
+        }
         &__items{
             margin: 0;
             padding: 0;
@@ -34,18 +45,23 @@ export default {
             display: inline-block;
             vertical-align: middle;
             margin-right: 38px;
+            cursor: pointer;
         }
         &__item{
             display: inline-block;
             vertical-align: middle;
+            margin-right: 30px;
+            cursor: pointer;    
+            &:nth-last-child(){
+                margin-right: 0px;
+            }
+        }
+        &__link{
+            text-decoration: none;
             font-family: Comfortaa;
             font-size: 17px;
             letter-spacing: 0.43px;
             color: #858585;
-            margin-right: 30px;
-            &:nth-last-child(){
-                margin-right: 0px;
-            }
         }
         &__basket{
             &_span{
@@ -55,6 +71,7 @@ export default {
                 display: inline-block;
                 vertical-align: bottom;
                 margin-right: 18px;
+                cursor: pointer;
             }
         }
         &__text{
@@ -64,8 +81,9 @@ export default {
             font-family: Comfortaa;
             font-size: 13px;
             letter-spacing: 0.33px;
-            color: #9c9c9c;
+            color: #240606;
             border-bottom: 1px solid#9c9c9c;
+            cursor: pointer;
         }
         &__tell{
             font-family: Comfortaa;
@@ -77,7 +95,7 @@ export default {
             text-decoration: none;
         }
     }
-    .header{
+    .header{//правая часть хедера
         &__cover{
             margin-top: 36px;
         }
@@ -112,19 +130,21 @@ export default {
             font-family: GUERRILLA;
             font-size: 17px;
             padding: 23px 0 23px 30px;
-            max-width:267px;
+            max-width:237px;
             width: 100%;
             text-align: left;
             letter-spacing: 0.34px;
             color: #ffffff;
+            text-decoration: none;
             background: linear-gradient(to top, #b1f367, #90d13b);
         }
-        // &__white-basket{
-        //     background: url('./images/basket-order.svg') no-repeat;
-        //     width: 29px;
-        //     height: 29px;
-        //     display: inline-block;
+        &__white-basket{
+            background: url('./images/white-basket.png') no-repeat;
+            width: 29px;
+            height: 29px;
+            display: inline-block;
+            margin-right: 32px;
 
-        // }
+        }
     }
 </style>

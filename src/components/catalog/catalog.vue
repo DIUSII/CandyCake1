@@ -10,13 +10,13 @@
             </div>
         </div>
         <ul class="catalog__items-1 fixed-container">
-            <li class="catalog__item" v-for="item in array" :key="item.id">
-                <h3 class="catalog__title-product">{{item.title}}</h3>
-                <img :src="item.img" alt="giraff" class="catalog__img">
+            <li class="catalog__item" v-for="(item, index) in checkOutCatalog" :key="item.id">
+                <h3 class="catalog__title-product" @click="switchProduct(index)">{{item.title}}</h3>
+                <img :src="item.img" alt="giraff" class="catalog__img" @click="switchProduct(index)">
                 <div class="catalog__price-buy flex-container">
-                    <span class="catalog__price">{{item.price}}</span>
-                    <div class="catalog__backgroung-img">
-                        <img src="./images/basket.png" alt="bakset" class="catalog__basket">
+                    <span class="catalog__price" @click="switchProduct(index)">{{item.price}}</span>
+                    <div class="catalog__backgroung-img" @click="buyProduct(index)">
+                        <img src="./images/basket.png" alt="bakset" class="catalog__basket" >
                     </div>
                 </div>
             </li>
@@ -27,41 +27,24 @@
 <script>
 import navBar from '../navBar/navBar'
 import footer from '../footer/footer'
+import {mapMutations, mapGetters} from "vuex"
 export default {
     data(){
         return {
-            array: [
-                {
-                    title: 'Тапки для кигуруми жираф',
-                    img: require('./images/giraff.png'),
-                    price: '580 р',
-                },
-                {
-                    title: 'Тапки для кигуруми розовые',
-                    img: require('./images/pink.png'),
-                    price: '580 р',
-                },
-                {
-                    title: 'Тапки для кигуруми красные',
-                    img: require('./images/red.png'),
-                    price: '580 р',
-                },
-                {
-                    title: 'Тапки для кигуруми желтые',
-                    img: require('./images/yellow.png'),
-                    price: '580 р',
-                },
-                {
-                    title: 'Тапки для кигуруми голубые',
-                    img: require('./images/blue.png'),
-                    price: '580 р',
-                },
-                {
-                    title: 'Тапки для кигуруми серые',
-                    img: require('./images/gray.png'),
-                    price: '580 р',
-                },
-            ]
+            
+        }
+    },
+    computed: mapGetters(['checkOutCatalog']),
+    methods: {
+        ...mapMutations(['appQuantity', 'indexOfArrayCatalog', 'pushInBasket']),
+        buyProduct(index){
+            this.appQuantity();
+            this.indexOfArrayCatalog(index);
+            this.pushInBasket();
+        },
+        switchProduct(index){
+            this.indexOfArrayCatalog(index);
+            this.$router.push({path: './product'});
         }
     },
     components: {
@@ -128,6 +111,7 @@ export default {
         }
         &__img{
             max-width: 218px;
+            height: 210px;
         }
         &__price-buy{
             padding: 0 40px;

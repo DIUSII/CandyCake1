@@ -14,15 +14,43 @@
                 <h2 class="product__title">{{checkOutCatalog[$store.state.index].title}}</h2>
                 <h3 class="product__sub-title">Выберите размер:</h3>
                 <ul class="product__size">
-                    <li class="product__item-size" :class="{hoverEffectSize: hoverEffect1}" @mouseenter="hoverEffect1 = true" @mouseout="hoverEffect1 = false">29-34</li>
-                    <li class="product__item-size" :class="{hoverEffectSize: hoverEffect2}" @mouseenter="hoverEffect2 = true" @mouseout="hoverEffect2 = false">35-39</li>
-                    <li class="product__item-size" :class="{hoverEffectSize: hoverEffect3}" @mouseenter="hoverEffect3 = true" @mouseout="hoverEffect3 = false">40-45</li>
+                    <li class="product__switch-size">
+                        <input type="radio" id="shipadd1" name="address" class="product__input" v-model="checked" value="29-34"/>
+                        <label 
+                            for="shipadd1" 
+                            class="product__item-size" 
+                            :class="{hoverEffectSize: hoverEffect1}" 
+                            @mouseenter="hoverEffect1 = true, checkMargin = true" 
+                            @mouseout="hoverEffect1 = false, checkMargin = false"
+                        >29-34</label>
+                    </li>
+                    <li class="product__switch-size"> 
+                        <input type="radio" id="shipadd2" name="address" class="product__input" v-model="checked" value="35-39"/>
+                        <label 
+                            for="shipadd2" 
+                            class="product__item-size"  
+                            :class="{hoverEffectSize: hoverEffect2}" 
+                            @mouseenter="hoverEffect2 = true, checkMargin = true" 
+                            @mouseout="hoverEffect2 = false, checkMargin = false"
+                        >35-39</label>
+                    </li>
+                    <li>
+                        <input type="radio" id="shipadd3" name="address" class="product__input" v-model="checked" value="40-45"/>
+                        <label 
+                            for="shipadd3" 
+                            class="product__item-size" 
+                            :class="{hoverEffectSize: hoverEffect3}" 
+                            @mouseenter="hoverEffect3 = true, checkMargin = true" 
+                            @mouseout="hoverEffect3 = false, checkMargin = false"
+                        >40-45</label>
+                    </li>
+                    
                 </ul>
                 <h3 class="product__sub-title">Количество:</h3>
                 <add-quantity></add-quantity>
-                <div class="product__price">Цена:<span class="product__price_span">{{checkOutCatalog[$store.state.index].price}}</span></div>
-                <button class="product__add-in-basket" @click="addItemInBasket">Добавить в корзину</button>
-                <button class="product__order">Заказать</button>
+                <div class="product__price">Цена:<span class="product__price_span">{{checkOutCatalog[$store.state.index].price + 'p'}}</span></div>
+                <button class="product__add-in-basket" type="button" @click="addItemInBasket" :class="{darkBack: checkBack}" href="#catalog" @mouseenter="checkBack = true" @mouseleave="checkBack = false">Добавить в корзину</button>
+                <button class="product__order" :class="{darkBack: checkBack1, whiteColor: checkBack1}" href="#catalog" @mouseenter="checkBack1 = true" @mouseleave="checkBack1 = false">Заказать</button>
             </form>
         </div>
         <footer-container></footer-container>
@@ -39,11 +67,18 @@
                 hoverEffect1: false,
                 hoverEffect2: false,
                 hoverEffect3: false,
+                checkMargin: false,
+                checked: "Размер не выбран",
+                checkBack:false,
+                checkBack1: false,
             }
         },
         methods: {
-            ...mapMutations(['appQuantity']),
+            ...mapMutations(['appQuantity', 'pushInBasket', 'quantityOfProductInBasket', 'assignSizeInProdct']),
             addItemInBasket(){
+                this.pushInBasket();    
+                this.assignSizeInProdct(this.checked);
+                this.quantityOfProductInBasket(this.$store.state.basket[this.$store.state.indexOfBasket].id);
                 this.appQuantity();
             }
         },
@@ -62,6 +97,10 @@
         background-color: #a9eb5c;
         padding: 8px 11px;
         color: #FFF !important;
+    }
+    .whiteColor{
+        color: #FFF !important;
+        border: 1px solid  #a1dc5e;
     }
     .product{
         &__container{
@@ -113,7 +152,15 @@
             justify-content: flex-start;
             align-items: center;
         }
-        &__item-size{
+        &__switch-size{
+            margin-right: 10px;
+        }
+        &__input[type="radio"]{
+            display:none;
+        }
+
+        &__input[type="radio"] + label
+        {
             margin-right: 10px;
             font-family: GUERRILLA;
             letter-spacing: 0.4px;
@@ -122,6 +169,14 @@
             &:nth-last-child(1){
                 margin-right: 0px;
             }
+        }
+
+        &__input[type="radio"]:checked + label
+        {
+            border-radius: 10px;
+            background-color: #a9eb5c;
+            padding: 8px 11px;
+            color: #FFF !important;
         }
         &__quatity-product{
             border: 1px solid #f99fc9;
@@ -175,7 +230,7 @@
             border-radius: 18px;
             padding: 10px 0;
             margin-right: 34px;
-            background-image: linear-gradient(to top, #b1f367, #90d13b);
+            background-image: linear-gradient(to bottom, #b1f367, #90d13b);
         }
         &__order{
             outline: none;

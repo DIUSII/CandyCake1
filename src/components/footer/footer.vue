@@ -3,17 +3,17 @@
         <div class="footer__container fixed-container flex-container">
             <div class="footer__catalog">
                 <h3 class="footer__title" @click="backMainPage">
-                    <a href="#catalog" class="footer__title">Категории</a>
+                    <a href="#catalog-main-page" class="footer__title">Категории</a>
                 </h3>
                 <ul class="footer__catalog-items" @click="backMainPage">
-                    <li class="footer__catalog-item"><a href="#catalog" class="footer__catalog-item" >Кигуруми</a></li>
-                    <li class="footer__catalog-item"><a href="#catalog" class="footer__catalog-item" >Слаймы</a></li>
-                    <li class="footer__catalog-item"><a href="#catalog" class="footer__catalog-item" >Тапочки</a></li>
-                    <li class="footer__catalog-item"><a href="#catalog" class="footer__catalog-item" >Сладости</a></li>
+                    <li class="footer__catalog-item"><a href="#catalog-main-page" class="footer__catalog-item" >Кигуруми</a></li>
+                    <li class="footer__catalog-item"><a href="#catalog-main-page" class="footer__catalog-item" >Слаймы</a></li>
+                    <li class="footer__catalog-item"><a href="#catalog-main-page" class="footer__catalog-item" >Тапочки</a></li>
+                    <li class="footer__catalog-item"><a href="#catalog-main-page" class="footer__catalog-item" >Сладости</a></li>
                 </ul>
             </div>
             <h3 class="footer__title" @click="backMainPage">
-                <a href="#doOrder" class="footer__title">Как сделать заказ?</a>
+                <a href="#doOrder-main-page" class="footer__title">Как сделать заказ?</a>
             </h3>
             <div class="footer__money">
                 <h3 class="footer__title">Мы принимаем</h3>

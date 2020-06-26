@@ -1,45 +1,59 @@
 <template>
-    <div class="catalog fixed-container" id="catalog">
+    <div class="catalog fixed-container" id="catalog-main-page">
         <h2 class="catalog__title-mainPage">Каталог</h2>
         <h3 class="catalog__sub-title">Выберите интересующий раздел</h3>
         <ul class="catalog__items">
-            <li class="catalog__item-main-page" v-for="item in array" :key='item.id' @click="goOverCatalog">
+            <li class="catalog__item-main-page" v-for="(item, index) in array" :key='item.id' @click="goOverCatalog">
                 <img :src="item.img" alt="kigurumi" class="catalog__img-main-page">
                 <p class="catalog__fiqcaption">{{item.title}}</p>
-                <button class="catalog__button">Перейти</button>
+                <button class="catalog__button" @click="switchCatalog(index)" :class="{darkBack: item.checkBack}" @mouseenter="item.checkBack = true" @mouseleave="item.checkBack = false">Перейти</button>
             </li>
         </ul>
     </div>
 </template>
 <script>
     import router from '../../../router/router'
+    import {mapMutations} from 'vuex'
     export default {
         data(){
             return {
                 array: [
                     {
                         title: 'Кигуруми',
-                        img: require('./images/kigurumi.png')
+                        img: require('./images/kigurumi.png'),
+                        checkBack: false,
                     },
                     {
                         title: 'Слаймы',
-                        img: require('./images/slime.png')
+                        img: require('./images/slime.png'),
+                        checkBack: false
                     },
                     {
                         title: 'Тапочки',
-                        img: require('./images/slippers.png')
+                        img: require('./images/slippers.png'),
+                        checkBack: false
                     },
                     {
                         title: 'Сладости',
-                        img: require('./images/sweets.png')
+                        img: require('./images/sweets.png'),
+                        checkBack: false
                     },
+                    {
+                        title: 'Книги',
+                        img: require('./images/sweets.png'),
+                        checkBack: false
+                    }
                     
-                ]
+                ],
             }
         },
         methods: {
+            ...mapMutations(['SWITCH_ARRAY']),
             goOverCatalog(){
                 router.push({path: './catalog'})
+            },
+            switchCatalog(index){
+                this.SWITCH_ARRAY(index);
             }
         }
     }
@@ -90,7 +104,7 @@
         }
         &__button{
             border-radius: 20.5px;
-            background-image: linear-gradient(to top, #b1f367, #90d13b);
+            background-image: linear-gradient(to bottom, #b1f367, #90d13b);
             max-width: 140px;
             width: 100%;
             font-family: GUERRILLA;

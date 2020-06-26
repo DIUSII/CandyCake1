@@ -16,28 +16,31 @@
             <div class="doOrder__delivery flex-container">
                 <p class="doOrder__sub-title">Доставка</p>
                 <label  class="doOrder__label">
-                    <input type="radio" class="doOrder__radio">
+                    <input type="radio" class="doOrder__radio" name="delivery">
                     <span class="doOrder__label_span">СДЭК</span>
                 </label>
                 <label  class="doOrder__label">
-                    <input type="radio" class="doOrder__radio">
+                    <input type="radio" class="doOrder__radio" name="delivery">
                     <span class="doOrder__label_span">Курьер (по Томску)<br><span class="doOrder__label_additionally-info">(+150 руб)<br>от 3000р. - бесплатно!</span></span>
                 </label>
                 <label  class="doOrder__label">
-                    <input type="radio" class="doOrder__radio">
+                    <input type="radio" class="doOrder__radio" name="delivery">
                     <span class="doOrder__label_span">Самовывоз</span>
                 </label>
             </div>
             <h3 class="doOrder__title">Ваш заказ</h3>
-            <ul class="doOrder__items">
-                <li class="doOrder__item">Тапочки:<span class="doOrder__item_span">Тапки для кигуруми жираф</span></li>
-                <li class="doOrder__item">Размер:<span class="doOrder__item_span">35-39 </span></li>
-                <li class="doOrder__item">Цена:<span class="doOrder__item_span">580 руб</span></li>
+            <ul class="doOrder__items" >
+                <li class="doOrder__item" v-for="item in allBasket" :key="item.id"> 
+                    <span style="margin-right: 60px;">Тапочки:<span class="doOrder__item_span">{{item.title}}</span></span>
+                    <span style="margin-right: 60px;">Размер:<span class="doOrder__item_span">{{item.sizeProduct}}</span></span>
+                    <span style="margin-right: 60px;">Количество:<span class="doOrder__item_span">{{item.quantity}}</span></span>
+                    <span style="margin-right: 60px;">Цена:<span class="doOrder__item_span">{{item.price*item.quantity + 'p'}}</span></span>
+                </li>
             </ul>
-            <h3 class="doOrder__title">Итого:   580 руб.</h3>
-            <button class="doOrder__button">Оформить заказ</button>
+            <h3 class="doOrder__title">Итого:   {{$store.state.sumPrice + 'p'}}</h3>
+            <button class="doOrder__button" :class="{darkBack: checkBack}" @mouseenter="checkBack = true" @mouseout="checkBack = false">Оформить заказ</button>
             <small class="doOrder__info-text">Отправляя свои контактные данные, вы соглашаетесь<br>на обработку персональных данных</small>
-            <a href="#" class="doOrder__back-page">Вернуться в корзину</a>
+            <span class="doOrder__back-page" @click="backToBasket" >Вернуться в корзину</span>
         </div>
         <footer-container></footer-container>
     </div>
@@ -45,14 +48,29 @@
 <script>
 import navBar from '../navBar/navBar'
 import footer from '../footer/footer'
+import {mapGetters} from 'vuex'
 export default {
     components: {
         'footer-container': footer,
         'nav-bar': navBar,
+    },
+    data(){
+        return {
+            checkBack: false,
+        }
+    },
+    computed: mapGetters(['allBasket']),
+    methods: {
+        backToBasket(){
+            this.$router.push({path: './basket'})
+        }
     }
 }
 </script>
 <style lang="scss">
+    .darkBack{
+        background-image: linear-gradient(to bottom, #a1dc5e, #7fb834) !important;
+    }
     .doOrder{
         &__way{
             font-family: GUERRILLA;
@@ -76,7 +94,7 @@ export default {
             color: #545454;
         }
         &__group-input{
-            max-width: 561px;
+            max-width: 600px;
         }
         &__input{
             max-width: 214px;
@@ -86,6 +104,7 @@ export default {
             margin-bottom: 60px;
             letter-spacing: 0.6px;
             border: none;
+            outline: none;
             background-color: transparent;
             padding-bottom: 19px;
             border-bottom: solid 3px #aeaeae;
@@ -147,10 +166,10 @@ export default {
             line-height: 1.76;
             letter-spacing: 0.68px;
             color: #8d8b8b;
-            margin-right: 72px;
+            margin-bottom: 22px;
             &_span{
                 font-weight: bold;
-                color: #777777;
+                color: #4e0b0b;
                 margin-left: 25px;
             }
         }
@@ -158,7 +177,7 @@ export default {
             border: none;
             outline: none;
             border-radius: 25.5px;
-            background-image: linear-gradient(to top, #b1f367, #90d13b);
+            background-image: linear-gradient(to bottom, #b1f367, #90d13b);
             font-family: GUERRILLA;
             font-size: 17px;
             letter-spacing: 0.43px;
@@ -166,6 +185,7 @@ export default {
             max-width:269px;
             width:100%;
             color: #ffffff;
+            transition: 1s;
             display: inline-block;
             vertical-align: middle;
         }

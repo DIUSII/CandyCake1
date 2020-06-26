@@ -1,5 +1,5 @@
 <template>
-    <div class="contact fixed-container" id='contacts'>
+    <div class="contact fixed-container" id='contacts-main-page'>
         <h2 class="contact__title">Контакты</h2>
         <h3 class="contact__sub-title">Как с нами связаться</h3>
         <div class="contact__container">

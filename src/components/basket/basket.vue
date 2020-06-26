@@ -7,11 +7,11 @@
             <ul class="basket__items">
                 <li class="basket__item" v-for="(item, index) in allBasket" :key="item.id">
                     <div class="fixed-container flex-container">
-                        <img :src="item.img" alt="girl" class="basket__img-product">
+                        <img :src="item.img" alt="girl" class="basket__img-product" @click="switchProduct(index)">
                         <div class="basket__form flex-container">
                             <div class="basket__name">
                                 <h3 class="basket__title-product">{{item.title}}</h3>
-                                <p class="basket__product-size">35-39 размер</p>
+                                <p class="basket__product-size">{{item.sizeProduct}}</p>
                             </div>
                             <div class="basket__additional">
                                 <h4 class="basket__sub-title">Количество</h4>
@@ -19,11 +19,11 @@
                             </div>
                             <div class="basket__price">
                                 <h4 class="basket__sub-title">Цена</h4>
-                                <p class="basket__money">{{item.price}}</p>
+                                <p class="basket__money">{{item.price + 'p'}}</p>
                             </div>
                             <div class="basket__delete-of-basket">
                                 <h4 class="basket__sub-title">Удалить</h4>
-                                <span class="basket__button-delete">X</span>
+                                <span class="basket__button-delete" @click="deleteOfBasket(index)">X</span>
                             </div>
                         </div>
                     </div>
@@ -33,8 +33,8 @@
             <div class="basket__price-and-order flex-container fixed-container">
                 <div class="basket__all-price">Сумма заказа:<span class="basket__all-price_span">{{$store.state.sumPrice + 'p'}}</span></div>
                 <div class="basket__order flex-container">
-                    <a href="#" class="basket__back-main-page">Вернуться на главную</a>
-                    <button class="basket__button">Оформить заказ</button>
+                    <a href="#" class="basket__back-main-page" @click="backMainPage">Вернуться на главную</a>
+                    <button class="basket__button" @click="transitionOrder"  :class="{darkBack: checkBack}" href="#catalog" @mouseenter="checkBack = true" @mouseleave="checkBack = false">Оформить заказ</button>
                 </div>
             </div>
         </div>
@@ -53,18 +53,28 @@
                 hoverEffect2: false,
                 hoverEffect3: false,
                 number: 1,
+                checkBack: false,
             }
         },
         computed: mapGetters(['checkOutCatalog', 'allBasket']),
         methods: {
-            ...mapMutations(['']),
-            minusNumber(){
-                if(this.number > 1){
-                    this.number--;
-                }
+            ...mapMutations(['deleteItemOfBasket', 'indexOfArrayCatalog', 'quantityOfProduct', 'INDEX_OF_BASKET', 'appQuantity']),
+            deleteOfBasket(index){
+                this.deleteItemOfBasket(index);
+                console.log(this.allBasket);
+                this.appQuantity();
             },
-            plusNumber(){
-                this.number++;
+            backMainPage(){
+                this.$router.push({path: './'});
+            },
+            transitionOrder(){
+                this.$router.push({path: './do-order'});
+            },
+            switchProduct(index){
+                this.indexOfArrayCatalog(this.$store.state.basket[index].id);
+                this.INDEX_OF_BASKET(index)
+                this.quantityOfProduct(1);
+                this.$router.push({path: './product'});
             }
         },
         components: {
@@ -80,6 +90,7 @@
             margin: 0;
             padding: 0;
             list-style: none;
+            min-height: 300px;
         }
         &__item{
             padding-bottom: 15px;
@@ -187,7 +198,7 @@
             max-width: 269px;
             width: 100%;
             border-radius: 25.5px;
-            background-image: linear-gradient(to top, #b1f367, #90d13b);
+            background-image: linear-gradient(to bottom, #b1f367, #90d13b);
             color: #ffffff;
         }   
         &__order{

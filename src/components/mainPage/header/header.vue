@@ -6,7 +6,7 @@
             <div class="header__info">
                 <h1 class="header__title">Добро пожаловать в Мир кексика Candy!</h1>
                 <p class="header__sub-title">Трендовый товар со всего света!</p>
-                <a class="header__button flex-container" href="#catalog"><span>Перейти в каталог</span><span class="header__white-basket"></span></a>
+                <a class="header__button flex-container" :class="{darkBack: checkBack}" href="#catalog-main-page" @mouseenter="checkBack = true" @mouseleave="checkBack = false"><span>Перейти в каталог</span><span class="header__white-basket"></span></a>
 
             </div>
             <img src="./images/main-cake.png" alt="main-cake" class="header__main-cake">
@@ -18,7 +18,7 @@
     export default {
         data(){
             return {
-
+                checkBack: false,
             }
         },
         components: {
@@ -50,7 +50,6 @@
         &__item{
             display: inline-block;
             vertical-align: middle;
-            margin-right: 30px;
             cursor: pointer;    
             &:nth-last-child(){
                 margin-right: 0px;
@@ -60,6 +59,9 @@
             text-decoration: none;
             font-family: Comfortaa;
             font-size: 17px;
+            margin-right: 15px;
+            transition: 1s;
+            margin-left: 15px;
             letter-spacing: 0.43px;
             color: #858585;
         }
@@ -93,6 +95,7 @@
             color: #727070;
             margin-left: 55px;
             text-decoration: none;
+            cursor: pointer;
         }
     }
     .header{//правая часть хедера
@@ -136,7 +139,7 @@
             letter-spacing: 0.34px;
             color: #ffffff;
             text-decoration: none;
-            background: linear-gradient(to top, #b1f367, #90d13b);
+            background: linear-gradient(to bottom, #b1f367, #90d13b);
         }
         &__white-basket{
             background: url('./images/white-basket.png') no-repeat;

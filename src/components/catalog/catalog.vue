@@ -4,9 +4,9 @@
         <div class="catalog__container fixed-container">
             <div class="catalog__contant">
                 <h2 class="catalog__title">
-                    Каталог тапочек
+                    Каталог {{$store.state.titleCatalog}}
                 </h2>
-                <span class="catalog__quatity-product">7 товаров</span>
+                <span class="catalog__quatity-product">{{$store.state.arrayCatalog.length}} товаров</span>
             </div>
         </div>
         <ul class="catalog__items-1 fixed-container">
@@ -14,8 +14,8 @@
                 <h3 class="catalog__title-product" @click="switchProduct(index)">{{item.title}}</h3>
                 <img :src="item.img" alt="giraff" class="catalog__img" @click="switchProduct(index)">
                 <div class="catalog__price-buy flex-container">
-                    <span class="catalog__price" @click="switchProduct(index)">{{item.price}}</span>
-                    <div class="catalog__backgroung-img" @click="buyProduct(index)">
+                    <span class="catalog__price" @click="switchProduct(index)">{{item.price + 'p'}}</span>
+                    <div class="catalog__backgroung-img" @click="buyProduct(index)" :class="{darkBack: item.checkBack}" href="#catalog" @mouseenter="item.checkBack = true" @mouseleave="item.checkBack = false">
                         <img src="./images/basket.png" alt="bakset" class="catalog__basket" >
                     </div>
                 </div>
@@ -31,19 +31,19 @@ import {mapMutations, mapGetters} from "vuex"
 export default {
     data(){
         return {
-            
         }
     },
     computed: mapGetters(['checkOutCatalog']),
     methods: {
-        ...mapMutations(['appQuantity', 'indexOfArrayCatalog', 'pushInBasket']),
+        ...mapMutations(['appQuantity', 'indexOfArrayCatalog', 'pushInBasket', 'quantityOfProduct']),
         buyProduct(index){
-            this.appQuantity();
             this.indexOfArrayCatalog(index);
             this.pushInBasket();
+            this.appQuantity();
         },
         switchProduct(index){
             this.indexOfArrayCatalog(index);
+            this.quantityOfProduct(1);
             this.$router.push({path: './product'});
         }
     },
@@ -100,8 +100,11 @@ export default {
             margin-bottom: 58px;
         }
         &__title-product{
-            margin: 0 auto;
-            max-width:146px;
+            // margin: 0 auto;
+            padding: 0 10px;
+            margin: 0;
+            height: 38px;
+            // max-width:146px;
             text-align: center;
             font-family: Comfortaa;
             font-size: 15px;
@@ -111,7 +114,9 @@ export default {
         }
         &__img{
             max-width: 218px;
+            display: block;
             height: 210px;
+            margin: 0 auto;
         }
         &__price-buy{
             padding: 0 40px;
@@ -128,7 +133,7 @@ export default {
         }
         &__backgroung-img{
             box-shadow: 0 0 13px 0 rgba(112, 162, 48, 0.47);
-            background-image: linear-gradient(to top, #b1f367, #90d13b);
+            background-image: linear-gradient(to bottom, #b1f367, #90d13b);
             border: none;
             outline: none;
             border-radius: 50%;

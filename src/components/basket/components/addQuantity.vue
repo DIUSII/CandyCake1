@@ -12,9 +12,11 @@
         methods: {
             ...mapMutations(['plusQuantity', 'minusQuantity']),
             minusNumber(){
+                console.log(this.indexArray);
                 this.minusQuantity(this.indexArray);
             },
             plusNumber(){
+                console.log(this.indexArray);
                 this.plusQuantity(this.indexArray);
             }
         }

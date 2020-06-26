@@ -32,7 +32,7 @@ let router = new Router({
         },
         {
             path: '/basket',
-            name: 'bakset',
+            name: 'basket',
             component: basket
         }
     ],

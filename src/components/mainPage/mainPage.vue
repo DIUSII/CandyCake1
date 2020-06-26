@@ -25,7 +25,7 @@
             'do-order': doOrder,
             cooperation,
             contacts,
-            'footer-container': footer
+            'footer-container': footer,
         }
     }
 </script>

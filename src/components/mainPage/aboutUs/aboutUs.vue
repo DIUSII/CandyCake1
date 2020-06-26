@@ -1,5 +1,5 @@
 <template>
-    <div class="aboutUs" id="aboutUs">
+    <div class="aboutUs" id="aboutUs-main-page">
         <h2 class="aboutUs__title">О нас</h2>
         <div class="aboutUs__container flex-container fixed-container">
             <div class="aboutUs__info">

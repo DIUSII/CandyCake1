@@ -1,15 +1,18 @@
 <template>
   <div id="app">
     <block></block>
+    <modal-window></modal-window>
   </div>
 </template>
 
 <script>
   import block from './components/block'
+  import modalWindow from './components/mainPage/modalWindowPhone/modalWindowPhone'
 export default {
   name: 'App',
   components: {
     block,
+    'modal-window':modalWindow
   },
   created(){
     localStorage.index = 0;

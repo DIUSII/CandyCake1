@@ -1,5 +1,5 @@
 <template>
-    <div class="cooperation fixed-container" id='cooperation'>
+    <div class="cooperation fixed-container" id='cooperation-main-page'>
         <h2 class="cooperation__title">Сотрудничество</h2>
         <h3 class="cooperation__sub-title">Мы всегда открыты к сотрудничеству</h3>
         <div class="cooperation__container">
@@ -12,7 +12,7 @@
                 <h4 class="cooperation__title-form">Укажите ваши контакты и мы с вами свяжемся!</h4>
                 <input type="text" class="cooperation__input" placeholder="Ваше имя..." required name="text">
                 <input type="text" class="cooperation__input" placeholder="Ваш телефон..." required name="tell" v-mask="'7 (###) ###-##-##'" v-model="inputPhone">
-                <button class="cooperation__button" type="submit">Отправить контакты</button>
+                <button class="cooperation__button" type="submit" :class="{darkBack: checkBack}" href="#catalog" @mouseenter="checkBack = true" @mouseleave="checkBack = false">Отправить контакты</button>
                 <small class="cooperation__small ">Отправляя свои контактные данные, вы соглашаетесь на обработку персональных данных</small>
             </form>
         </div>
@@ -22,7 +22,8 @@
     export default {
         data(){
             return {
-                inputPhone: ""
+                inputPhone: "",
+                checkBack: false
             }
         },
         components: {
@@ -99,7 +100,7 @@
         }
         &__button{
             border-radius: 16px;
-            background-image: linear-gradient(to top, #b1f367, #90d13b);
+            background-image: linear-gradient(to bottom, #b1f367, #90d13b);
             font-family: GUERRILLA;
             font-size: 15px;
             line-height: 1.6;
